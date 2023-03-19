@@ -431,10 +431,12 @@ export const Quicks = () => {
                                       height={20}
                                     />
 
-                                    <DatePicker
-                                      selected={startDate}
-                                      onChange={(date) => setStartDate(date)}
-                                    />
+                                    <div>
+                                      <DatePicker
+                                        selected={startDate}
+                                        onChange={(date) => setStartDate(date)}
+                                      />
+                                    </div>
                                   </div>
                                   <div className="ms-3 d-flex flex-row">
                                     <img
