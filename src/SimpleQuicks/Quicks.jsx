@@ -37,7 +37,7 @@ export const Quicks = () => {
   const openlistchat = (e) => {
     setlistchatopen(!listchatopen);
   };
-  const [search, setSearch] = useState("");
+  const [search] = useState("");
 
   const url = `https://jsonplaceholder.typicode.com/users`;
   useEffect(() => {
