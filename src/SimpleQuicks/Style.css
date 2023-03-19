@@ -1,0 +1,138 @@
+body {
+  background-color: gray;
+}
+#chatCon {
+  width: 55%;
+  position: absolute;
+  bottom: 4%;
+  right: 4%;
+}
+
+#chatCon .chat-box #listUsers {
+  /* display: none; */
+  width: 100%;
+  height: 500px;
+  border-radius: 0px 0px 10px 10px;
+  background-color: white;
+}
+#chatCon .header .footer {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px 10px 0px 0px;
+  color: #fff;
+  font-size: 20px;
+}
+
+#chatCon .chat-box .msg-area {
+  overflow: hidden;
+  height: 340px;
+  padding: 15px;
+}
+
+#chatCon .chat-box .msg-area .left span {
+  display: inline-block;
+  font-size: 17.5px;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #ddd;
+}
+
+#chatCon .chat-box .msg-area .right {
+  text-align: right;
+}
+
+#chatCon .chat-box .msg-area .right span {
+  display: inline-block;
+  font-size: 17.5px;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #ddd;
+}
+
+#chatCon .chat-box .footer {
+  padding: 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+#chatCon .chat-box .footer input {
+  border: 1px solid #fff;
+  padding: 10px;
+  width: 80%;
+  border-radius: 15px;
+}
+
+#chatCon .chat-box input:focus {
+  outline: none;
+}
+
+#chatCon .chat-box button {
+  border: none;
+  font-size: 22.5px;
+  color: white;
+  cursor: pointer;
+}
+
+#chatCon .pop {
+  width: 100%;
+  height: 25%;
+  cursor: pointer;
+}
+
+#chatCon .pop p {
+  text-align: right;
+}
+
+#chatCon .pop img {
+  border-radius: 50%;
+  width: 70px;
+}
+#listUsers {
+  overflow-y: scroll;
+}
+
+/* footer chat message */
+.footer-chat-message {
+  position: end;
+  padding-top: 15px;
+  left: 0px;
+  width: 100%;
+  height: 70px;
+}
+
+.footer-chat-message input {
+  height: 40px;
+  width: 90%;
+  border-radius: 15px;
+  padding-left: 15px;
+  background: #e6eeff;
+  border: none;
+}
+
+.footer-chat-message .send-message button {
+  border: none;
+  background: #fff;
+}
+
+.footer-chat-message .send-message {
+  margin-left: 10px;
+  font-size: 22px;
+  color: #7e98df;
+}
+
+.sender p,
+.receive p {
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 15px;
+  line-height: 156%;
+  letter-spacing: -0.165px;
+  color: #7e98df;
+}
+
+/*# sourceMappingURL=auto.css.map */
