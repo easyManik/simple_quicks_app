@@ -14,6 +14,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Accordion from "react-bootstrap/Accordion";
 import threedots from "./../images/threedots.png";
+import NewTask from "../component/NewTask";
 
 export const Quicks = () => {
   let hide = {
@@ -37,6 +38,12 @@ export const Quicks = () => {
   const openlistchat = (e) => {
     setlistchatopen(!listchatopen);
   };
+
+  const [newTask, setOpenNewTask] = useState(false);
+  const openNewTask = (e) => {
+    setOpenNewTask(!newTask);
+  };
+
   const [search] = useState("");
 
   const url = `https://jsonplaceholder.typicode.com/users`;
@@ -359,107 +366,298 @@ export const Quicks = () => {
           <>
             <div className="header">
               <HeaderTasks
-              // onChange={(e) => setSearch(e.target.value.toLowerCase())}
+                onClick={openNewTask}
+                // onChange={(e) => setSearch(e.target.value.toLowerCase())}
               />
             </div>
             <div id="listUsers">
-              <div className="overflow-auto all-list-chatting accordion">
-                {messagess?.length > 1
-                  ? messagess.map((item) => {
-                      return (
-                        <>
-                          <div
-                            className="list-chatting d-flex p-2 m-3 form-check accordion-item d-flex flex-column"
-                            style={{ backgroundColor: "#white" }}
-                            key={item.id}
-                            onClick={openlistchat}
-                          >
-                            <Accordion defaultActiveKey="0">
-                              <Accordion.Item eventKey="0">
-                                <Accordion.Header>
-                                  <div
-                                    className="d-flex flex-row justify-content-between"
-                                    style={{
-                                      width: "100%",
-                                      color: "black",
-                                    }}
-                                  >
-                                    <div>
-                                      <input
-                                        className="form-check-input ms-2"
-                                        type="checkbox"
-                                        value=""
-                                        id="flexCheckDefault"
-                                      />
-                                      <label
-                                        className="form-check-label"
-                                        for="flexCheckDefault"
-                                      >
-                                        <h5
-                                          onClick={openlistchat}
-                                          className="d-flex align-items-start mx-4"
+              {newTask === false ? (
+                <div className="overflow-auto all-list-chatting accordion">
+                  {messagess?.length > 1
+                    ? messagess.map((item) => {
+                        return (
+                          <>
+                            <div
+                              className="list-chatting d-flex p-2 m-3 form-check accordion-item d-flex flex-column"
+                              style={{ backgroundColor: "#white" }}
+                              key={item.id}
+                              onClick={openlistchat}
+                            >
+                              <Accordion defaultActiveKey="0">
+                                <Accordion.Item eventKey="0">
+                                  <Accordion.Header>
+                                    <div
+                                      className="d-flex flex-row justify-content-between"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                      }}
+                                    >
+                                      <div>
+                                        <input
+                                          className="form-check-input ms-2"
+                                          type="checkbox"
+                                          value=""
+                                          id="flexCheckDefault"
+                                        />
+                                        <label
+                                          className="form-check-label"
+                                          for="flexCheckDefault"
                                         >
-                                          {item.name}
-                                        </h5>
-                                      </label>
-                                    </div>
+                                          <h5
+                                            onClick={openlistchat}
+                                            className="d-flex align-items-start mx-4"
+                                          >
+                                            {item.name}
+                                          </h5>
+                                        </label>
+                                      </div>
 
-                                    <div className="btn d-flex justify-content-end align-self-center">
-                                      <p>
+                                      <div className="btn d-flex justify-content-end align-self-center">
+                                        <p>
+                                          <DatePicker
+                                            selected={startDate}
+                                            className="btn"
+                                          />
+                                        </p>
+                                        <img
+                                          src={threedots}
+                                          alt=""
+                                          height={6}
+                                          className="d-flex align-self-center mx-2"
+                                        />
+                                      </div>
+                                    </div>
+                                  </Accordion.Header>
+
+                                  <Accordion.Body>
+                                    <div className="ms-3 d-flex flex-row">
+                                      <img
+                                        src={schedule}
+                                        alt=""
+                                        className=" m-2"
+                                        width={20}
+                                        height={20}
+                                      />
+
+                                      <div>
                                         <DatePicker
                                           selected={startDate}
-                                          className="btn"
+                                          onChange={(date) =>
+                                            setStartDate(date)
+                                          }
                                         />
-                                      </p>
+                                      </div>
+                                    </div>
+                                    <div className="ms-3 d-flex flex-row">
                                       <img
-                                        src={threedots}
+                                        src={edit}
                                         alt=""
-                                        height={6}
-                                        className="d-flex align-self-center mx-2"
+                                        className=" m-2"
+                                        width={20}
+                                        height={20}
                                       />
+                                      <p className="last-message d-flex align-items-start">
+                                        {item.body}
+                                      </p>
                                     </div>
-                                  </div>
-                                </Accordion.Header>
-
-                                <Accordion.Body>
-                                  <div className="ms-3 d-flex flex-row">
-                                    <img
-                                      src={schedule}
-                                      alt=""
-                                      className=" m-2"
-                                      width={20}
-                                      height={20}
+                                  </Accordion.Body>
+                                </Accordion.Item>
+                              </Accordion>
+                            </div>
+                            <hr className="mx-3" />
+                          </>
+                        );
+                      })
+                    : "No description"}
+                </div>
+              ) : (
+                <div className="chat-box" style={tasksOpen ? show : hide}>
+                  <div id="newtask">
+                    <div className="overflow-auto all-list-chatting accordion">
+                      <>
+                        <div
+                          className="list-chatting d-flex p-2 m-3 form-check accordion-item d-flex flex-column"
+                          style={{ backgroundColor: "#white" }}
+                          // key={key}
+                          // onClick={onClick}
+                        >
+                          <Accordion defaultActiveKey="0">
+                            <Accordion.Item eventKey="0">
+                              <Accordion.Header>
+                                <div
+                                  className="d-flex flex-row justify-content-between"
+                                  style={{
+                                    width: "100%",
+                                    color: "black",
+                                  }}
+                                >
+                                  <div>
+                                    <input
+                                      className="form-check-input ms-2"
+                                      type="checkbox"
+                                      value=""
+                                      id="flexCheckDefault"
                                     />
-
-                                    <div>
-                                      <DatePicker
-                                        selected={startDate}
-                                        onChange={(date) => setStartDate(date)}
+                                    <label
+                                      className="form-check-label"
+                                      for="flexCheckDefault"
+                                    >
+                                      <input
+                                        placeholder="Type Task Title"
+                                        style={{
+                                          borderRadius: "5px",
+                                          marginLeft: "20px",
+                                        }}
                                       />
-                                    </div>
+                                    </label>
                                   </div>
-                                  <div className="ms-3 d-flex flex-row">
-                                    <img
-                                      src={edit}
-                                      alt=""
-                                      className=" m-2"
-                                      width={20}
-                                      height={20}
+                                </div>
+                              </Accordion.Header>
+
+                              <Accordion.Body>
+                                <div className="ms-3 d-flex flex-row">
+                                  <img
+                                    src={schedule}
+                                    alt=""
+                                    className=" m-2"
+                                    width={20}
+                                    height={20}
+                                  />
+
+                                  <div>
+                                    <DatePicker
+                                      selected={startDate}
+                                      onChange={(date) => setStartDate(date)}
                                     />
-                                    <p className="last-message d-flex align-items-start">
-                                      {item.body}
-                                    </p>
                                   </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                            </Accordion>
-                          </div>
-                          <hr className="mx-3" />
-                        </>
-                      );
-                    })
-                  : "No description"}
-              </div>
+                                </div>
+                                <div className="ms-3 d-flex flex-row">
+                                  <img
+                                    src={edit}
+                                    alt=""
+                                    className=" m-2"
+                                    width={20}
+                                    height={20}
+                                  />
+                                  <textarea
+                                    placeholder="No Description"
+                                    style={{ width: "100%" }}
+                                  />
+                                </div>
+                              </Accordion.Body>
+                            </Accordion.Item>
+                          </Accordion>
+                        </div>
+                        <hr className="mx-3" />
+                      </>
+                    </div>
+                  </div>
+                  <>
+                    <div id="listUsers">
+                      <div className="overflow-auto all-list-chatting accordion">
+                        {messagess?.length > 1
+                          ? messagess.map((item) => {
+                              return (
+                                <>
+                                  <div
+                                    className="list-chatting d-flex p-2 m-3 form-check accordion-item d-flex flex-column"
+                                    style={{ backgroundColor: "#white" }}
+                                    key={item.id}
+                                    onClick={openlistchat}
+                                  >
+                                    <Accordion defaultActiveKey="0">
+                                      <Accordion.Item eventKey="0">
+                                        <Accordion.Header>
+                                          <div
+                                            className="d-flex flex-row justify-content-between"
+                                            style={{
+                                              width: "100%",
+                                              color: "black",
+                                            }}
+                                          >
+                                            <div>
+                                              <input
+                                                className="form-check-input ms-2"
+                                                type="checkbox"
+                                                value=""
+                                                id="flexCheckDefault"
+                                              />
+                                              <label
+                                                className="form-check-label"
+                                                for="flexCheckDefault"
+                                              >
+                                                <h5
+                                                  onClick={openlistchat}
+                                                  className="d-flex align-items-start mx-4"
+                                                >
+                                                  {item.name}
+                                                </h5>
+                                              </label>
+                                            </div>
+
+                                            <div className="btn d-flex justify-content-end align-self-center">
+                                              <p>
+                                                <DatePicker
+                                                  selected={startDate}
+                                                  className="btn"
+                                                />
+                                              </p>
+                                              <img
+                                                src={threedots}
+                                                alt=""
+                                                height={6}
+                                                className="d-flex align-self-center mx-2"
+                                              />
+                                            </div>
+                                          </div>
+                                        </Accordion.Header>
+
+                                        <Accordion.Body>
+                                          <div className="ms-3 d-flex flex-row">
+                                            <img
+                                              src={schedule}
+                                              alt=""
+                                              className=" m-2"
+                                              width={20}
+                                              height={20}
+                                            />
+
+                                            <div>
+                                              <DatePicker
+                                                selected={startDate}
+                                                onChange={(date) =>
+                                                  setStartDate(date)
+                                                }
+                                              />
+                                            </div>
+                                          </div>
+                                          <div className="ms-3 d-flex flex-row">
+                                            <img
+                                              src={edit}
+                                              alt=""
+                                              className=" m-2"
+                                              width={20}
+                                              height={20}
+                                            />
+                                            <p className="last-message d-flex align-items-start">
+                                              {item.body}
+                                            </p>
+                                          </div>
+                                        </Accordion.Body>
+                                      </Accordion.Item>
+                                    </Accordion>
+                                  </div>
+                                  <hr className="mx-3" />
+                                </>
+                              );
+                            })
+                          : "No description"}
+                      </div>
+                    </div>
+                  </>
+                </div>
+              )}
             </div>
           </>
         </div>

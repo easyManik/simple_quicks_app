@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./stylecomp.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import { Link } from "react-router-dom";
 
 const HeaderTasks = ({ onChangeSortBy, onClick, value }) => {
   return (
@@ -40,15 +41,17 @@ const HeaderTasks = ({ onChangeSortBy, onClick, value }) => {
         </option>
       </select>
 
-      <button
-        type="submit"
-        className={styles["task-button"]}
-        onClick={onClick}
-        value=""
-        title="Search"
-      >
-        New Task
-      </button>
+      <Link>
+        <button
+          type="submit"
+          className={styles["task-button"]}
+          onClick={onClick}
+          value=""
+          title="Search"
+        >
+          New Task
+        </button>
+      </Link>
     </div>
   );
 };
