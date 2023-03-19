@@ -14,7 +14,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Accordion from "react-bootstrap/Accordion";
 import threedots from "./../images/threedots.png";
-import NewTask from "../component/NewTask";
 
 export const Quicks = () => {
   let hide = {
