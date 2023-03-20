@@ -4,8 +4,8 @@ import chat from "./../images/chat.png";
 import tasks from "./../images/tasks.png";
 import Search from "../component/search";
 import axios from "axios";
-import avatar from "./../images/user.png";
-import { useParams } from "react-router-dom";
+import avatar from "./../images/Group 1603.png";
+import { useParams, useHistory } from "react-router-dom";
 import HeaderTasks from "../component/headerTask";
 import Moment from "react-moment";
 import schedule from "./../images/schedule_24px.png";
@@ -14,6 +14,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Accordion from "react-bootstrap/Accordion";
 import threedots from "./../images/threedots.png";
+import backimg from "./../images/arrow_back_24px.png";
+import { useNavigate } from "react-router-dom";
+import ListUserss from "../component/ListUsers";
 
 export const Quicks = () => {
   let hide = {
@@ -43,6 +46,10 @@ export const Quicks = () => {
     setOpenNewTask(!newTask);
   };
 
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(0);
+  };
   const [search] = useState("");
 
   const url = `https://jsonplaceholder.typicode.com/users`;
@@ -107,7 +114,7 @@ export const Quicks = () => {
 
   useEffect(() => {
     axios
-      .get(`https://jsonplaceholder.typicode.com/posts/1/comments`)
+      .get(`https://jsonplaceholder.typicode.com/posts/1`)
       .then((res) => {
         const messages = res.data;
         setMessage(messages);
@@ -187,33 +194,16 @@ export const Quicks = () => {
                       ? listUser.map((item) => {
                           return (
                             <>
-                              <div
-                                className="list-chatting d-flex p-2 m-3"
-                                style={{ backgroundColor: "#white" }}
+                              <ListUserss
                                 key={item.id}
                                 onClick={openlistchat}
-                              >
-                                <img
-                                  src={avatar}
-                                  alt="user pict"
-                                  width="64"
-                                  height="64"
-                                  style={{ borderRadius: "10px" }}
-                                />
-
-                                <div className="ms-3">
-                                  <h5
-                                    onClick={openlistchat}
-                                    className="d-flex align-items-start"
-                                  >
-                                    {item.company.name}
-                                  </h5>
-                                  <p className="last-message d-flex align-items-start">
-                                    {item.website}
-                                  </p>
-                                </div>
-                              </div>
-                              <hr className="mx-3" />
+                                src={avatar}
+                                selected={startDate}
+                                openlistchat={openlistchat}
+                                name={item.company.name}
+                                username={item.name}
+                                lastChat={message.title}
+                              />
                             </>
                           );
                         })
@@ -230,128 +220,159 @@ export const Quicks = () => {
                     className="d-flex justify-content-between align-items-center p-2"
                     style={{
                       backgroundColor: "white",
+                      marginBottom: "1px",
                       borderRadius: "10px 10px 0px 0px",
                       borderColor: "black",
                     }}
                   >
                     <div className="d-flex mx-3">
-                      <img
-                        src={dataUser.thumbnailUrl ? dataUser.url : avatar}
-                        alt=""
-                        style={{
-                          backgroundColor: "grey",
-                          borderRadius: "100%",
-                          width: "35px",
-                        }}
-                      />
-                      <h5 className="d-flex align-self-center mx-2">
-                        {dataUser.name}
-                      </h5>
-                    </div>
-                    <p className="d-flex align-self-center">{dataUser.email}</p>
-                  </div>
-                  {/*message*/}
-                  <div id="listUsers">
-                    <div>
-                      {messagess?.map((item, index) =>
-                        item.id === dataUser.id ? (
-                          <>
-                            <p
-                              className="mx-4 d-flex justify-content-end"
-                              style={{ color: "black" }}
-                            >
-                              you
-                            </p>
-                            <div
-                              className="sender d-flex justify-content-end align-items-start"
-                              key={index}
-                            >
-                              <div
-                                className="chat-message-from p-2 mx-3   "
-                                style={{
-                                  backgroundColor: "#EEDCFF ",
-                                  borderRadius: "10px",
-                                  width: "60vh",
-                                }}
-                              >
-                                <div className="text-start">{item.body} </div>
-
-                                <Moment
-                                  format="LT"
-                                  className="d-flex justify-content-start"
-                                  style={{ color: "#4F4F4F" }}
-                                >
-                                  {item.created_at}
-                                </Moment>
-                              </div>
-                            </div>
-                          </>
-                        ) : item.id !== dataUser.id ? (
-                          <>
-                            <p
-                              className="mx-4 text-start"
-                              style={{ color: "#E5A443" }}
-                            >
-                              {item.email}
-                            </p>
-
-                            <div
-                              className="receive d-flex justify-content-start align-items-end"
-                              key={item.id}
-                            >
-                              <div
-                                className="chat-message-to p-2 mx-3"
-                                style={{
-                                  backgroundColor: "#FCEED3",
-                                  borderRadius: "10px",
-                                  width: "60vh",
-                                }}
-                              >
-                                <div className="text-start">{item.body}</div>
-                                <Moment
-                                  format="LT"
-                                  className="d-flex justify-content-end"
-                                  style={{ color: "#4F4F4F" }}
-                                >
-                                  {item.created_at}
-                                </Moment>
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          ""
-                        )
-                      )}
-                      {/*post chat*/}
-                      <hr />
-                      <form
-                        className="send-message footer-chat-message d-flex justify-content-center p-3"
+                      <button
                         style={{
                           backgroundColor: "white",
-                          borderRadius: "0px 0px 10px 10px",
+                          marginRight: "10px",
                         }}
+                        onClick={goBack}
                       >
-                        <input
-                          type="text"
-                          placeholder="Type your message..."
-                          required
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
-                        />
+                        <img src={backimg} alt="" width={20} height={20} />
+                      </button>
 
-                        <button
-                          className="btn mx-2 "
-                          type="submit"
-                          onClick={(e) => handleSendMessage(e)}
+                      <div className="ms-3 d-flex align-self-center flex-column">
+                        <h5
+                          className=" text-start"
+                          style={{ color: "#2F80ED" }}
+                        >
+                          {dataUser.company.name}
+                        </h5>
+                        <p className="text-start">
+                          {messagess.length} Participants
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      aria-label="Close"
+                      style={{
+                        marginRight: "10px",
+                        width: "6px",
+                        height: "6px",
+                      }}
+                      onClick={toggleChat}
+                    ></button>
+                  </div>
+                  {/*message*/}
+                  <div id="listUsersChat">
+                    <div>
+                      <div id="scroll">
+                        {messagess
+                          ?.slice(0)
+                          .reverse()
+                          .map((item, index) =>
+                            item.id === dataUser.id ? (
+                              <>
+                                <div
+                                  className="sender d-flex justify-content-end align-items-start"
+                                  key={index}
+                                >
+                                  <div
+                                    className="chat-message-from p-2 mx-3   "
+                                    style={{
+                                      backgroundColor: "#EEDCFF ",
+                                      borderRadius: "10px",
+                                      width: "60vh",
+                                    }}
+                                  >
+                                    <div className="text-start">
+                                      {item.body}{" "}
+                                    </div>
+
+                                    <Moment
+                                      format="LT"
+                                      className="d-flex justify-content-start"
+                                      style={{ color: "#4F4F4F" }}
+                                    >
+                                      {item.created_at}
+                                    </Moment>
+                                  </div>
+                                </div>
+                                <p
+                                  className="mx-4 d-flex justify-content-end"
+                                  style={{ color: "black" }}
+                                >
+                                  you
+                                </p>
+                              </>
+                            ) : item.id !== dataUser.id ? (
+                              <>
+                                <div
+                                  className="receive d-flex justify-content-start align-items-end mb-3"
+                                  key={item.id}
+                                >
+                                  <div
+                                    className="chat-message-to p-2 mx-3"
+                                    style={{
+                                      backgroundColor: "#FCEED3",
+                                      borderRadius: "10px",
+                                      width: "60vh",
+                                    }}
+                                  >
+                                    <div className="text-start">
+                                      {item.body}
+                                    </div>
+                                    <Moment
+                                      format="LT"
+                                      className="d-flex justify-content-end"
+                                      style={{ color: "#4F4F4F" }}
+                                    >
+                                      {item.created_at}
+                                    </Moment>
+                                  </div>
+                                </div>
+                                <p
+                                  className="mx-4 text-start"
+                                  style={{ color: "#E5A443" }}
+                                >
+                                  {item.email}
+                                </p>
+                              </>
+                            ) : (
+                              ""
+                            )
+                          )}
+                      </div>
+
+                      {/*post chat*/}
+
+                      <div className="foot" style={{ marginTop: "1px" }}>
+                        <form
+                          className="send-message footer-chat-message d-flex justify-content-center p-3"
                           style={{
-                            borderRadius: "10px",
-                            backgroundColor: "#5E50A1",
-                            color: "white",
+                            backgroundColor: "white",
+                            borderRadius: "0px 0px 10px 10px",
                           }}
                         >
-                          send
-                        </button>
-                      </form>
+                          <input
+                            type="text"
+                            placeholder="Type your message..."
+                            required
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                          />
+
+                          <button
+                            className="btn mx-2 "
+                            type="submit"
+                            onClick={(e) => handleSendMessage(e)}
+                            style={{
+                              borderRadius: "10px",
+                              backgroundColor: "#5E50A1",
+                              color: "white",
+                            }}
+                          >
+                            send
+                          </button>
+                        </form>
+                      </div>
                     </div>
                   </div>
                 </div>
