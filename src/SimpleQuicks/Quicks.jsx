@@ -5,7 +5,7 @@ import tasks from "./../images/tasks.png";
 import Search from "../component/search";
 import axios from "axios";
 import avatar from "./../images/Group 1603.png";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import HeaderTasks from "../component/headerTask";
 import Moment from "react-moment";
 import schedule from "./../images/schedule_24px.png";
